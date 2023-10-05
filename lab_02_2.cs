@@ -74,17 +74,17 @@ class lab_02_2
 {
     static void Main(string[] args)
     {
-        Plane plane = new Plane(new double[] { 1000, 2000 }, 1000000, 900, 2020, 10000, 200);
-        Car car = new Car(new double[] { 500, 1000 }, 30000, 180, 2022);
-        Ship ship = new Ship(new double[] { 3000, 4000 }, 2000000, 50, 2018, 1500, "Port");
+        Plane plane = new Plane(new double[] { 1, 2 }, 1000000, 900, 2004, 10000, 200);
+        Car car = new Car(new double[] { 5, 10 }, 30000, 180, 2022);
+        Ship ship = new Ship(new double[] { 30, 40 }, 2000000, 50, 2018, 1500, "Port");
 
-        Console.WriteLine("Information about the plane:");
+        Console.WriteLine("Информация о самолете:");
         plane.Info();
 
-        Console.WriteLine("\nInformation about the car:");
+        Console.WriteLine("\nИнформация о машине:");
         car.Info();
 
-        Console.WriteLine("\nInformation about the ship:");
+        Console.WriteLine("\nИнформация о судне:");
         ship.Info();
     }
 }

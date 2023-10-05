@@ -1,199 +1,179 @@
 ﻿using System;
+using System.Xml.Linq;
 
 class Pupil
 {
+
+    protected string Name;
+    public Pupil(string name)
+    {
+        Name = name;
+    }
     public virtual void Study()
     {
-        Console.WriteLine("Pupil is studying");
+        Console.WriteLine(Name + " Учиться");
     }
 
     public virtual void Read()
     {
-        Console.WriteLine("Pupil is reading");
+        Console.WriteLine(Name + " читает");
     }
 
     public virtual void Write()
     {
-        Console.WriteLine("Pupil is writing");
+        Console.WriteLine(Name + " пишет");
     }
 
     public virtual void Relax()
     {
-        Console.WriteLine("Pupil is relaxinп");
+        Console.WriteLine(Name + " отдыхает");
     }
 }
 
 class ExcelentPupil : Pupil
 {
+    public ExcelentPupil(string name) : base(name) { }
     public override void Study()
     {
-        Console.WriteLine("Excelent pupil is not bad studying!");
+        Console.WriteLine("Excelent pupil " + Name + " много учиться");
     }
 
     public override void Read()
     {
-        Console.WriteLine("Excelent pupil is not bad reading!");
+        Console.WriteLine("Excelent pupil " + Name + " читает много книг");
     }
 
     public override void Write()
     {
-        Console.WriteLine("Excelent pupil is so not bad writing!");
+        Console.WriteLine("Excelent pupil " + Name + " пишет много сочинений");
     }
 
     public override void Relax()
     {
-        Console.WriteLine("Excelent pupil is bad relaxing!");
+        Console.WriteLine("Excelent pupil " + Name + " не отдыхает");
     }
 }
 
 class GoodPupil : Pupil
 {
+    public GoodPupil(string name) : base(name) { }
     public override void Study()
     {
-        Console.WriteLine("Good pupil is nice studying!");
+        Console.WriteLine("Good pupil " + Name + " учиться хорошо");
     }
 
     public override void Read()
     {
-        Console.WriteLine("Good pupil is good reading!");
+        Console.WriteLine("Good pupil " + Name + " читает иногда");
     }
 
     public override void Write()
     {
-        Console.WriteLine("Good pupil is nice writing!");
+        Console.WriteLine("Good pupil " + Name + " пишет достаточно сочинений");
     }
 
     public override void Relax()
     {
-        Console.WriteLine("Good pupil is very good relaxing!");
+        Console.WriteLine("Good pupil " + Name + " отдыхает после школы");
     }
 }
 
 class BadPupil : Pupil
 {
+    public BadPupil(string name) : base(name) { }
     public override void Study()
     {
-        Console.WriteLine("Bad pupil is bad studying!");
+        Console.WriteLine("Bad pupil " + Name + " не достаточно учиться");
     }
 
     public override void Read()
     {
-        Console.WriteLine("Bad pupil is not normal reading!");
+        Console.WriteLine("Bad pupil " + Name + " не читает книг");
     }
 
     public override void Write()
     {
-        Console.WriteLine("Bad pupil is so bad writing!");
+        Console.WriteLine("Bad pupil " + Name + " не пишет сочинений");
     }
 
     public override void Relax()
     {
-        Console.WriteLine("Bad pupil is too good relaxing!");
+        Console.WriteLine("Bad pupil " + Name + " много отдыхает");
     }
 }
 
 class ClassRoom
 {
-    private List<Pupil> pupils = new List<Pupil>();
+    private Pupil[] pupils;
 
-    public void AddPupil(Pupil pupil)
+    public ClassRoom(params Pupil[] pupils)
     {
-        pupils.Add(pupil);
+        this.pupils = pupils;
     }
 
-    public void StartLesson()
+    public void Study()
     {
-        Console.WriteLine("\nClass is starting a lesson. Oh no:");
-        foreach (var pupil in pupils)
+        foreach (Pupil pupil in pupils)
         {
             pupil.Study();
         }
     }
 
-    public void ReadingTime()
+    public void Read()
     {
-        Console.WriteLine("\nIt's reading time. I'm tired:");
-        foreach (var pupil in pupils)
+        foreach (Pupil pupil in pupils)
         {
             pupil.Read();
         }
     }
 
-    public void WritingTime()
+    public void Write()
     {
-        Console.WriteLine("\nIt's writing time. Why:");
-        foreach (var pupil in pupils)
+        foreach (Pupil pupil in pupils)
         {
             pupil.Write();
         }
     }
 
-    public void RelaxTime()
+    public void Relax()
     {
-        Console.WriteLine("\nIt's time to relax. Nice:");
-        foreach (var pupil in pupils)
+        foreach (Pupil pupil in pupils)
         {
             pupil.Relax();
         }
     }
 }
 
-class lab_02_1
+class Program
 {
     static void Main(string[] args)
     {
-        ClassRoom classRoom = new ClassRoom();
+        
 
-        int totalPupils = 0;
+        Pupil pupil1 = new ExcelentPupil("Маша");
+        Pupil pupil2 = new GoodPupil("Богдан");
+        Pupil pupil3 = new BadPupil("Арман");
+        Pupil pupil4 = new ExcelentPupil("Фёдор");
 
-        while (totalPupils < 2 || totalPupils > 4)
-        {
-            Console.Write("Enter the number of Pupils (2 to 4): ");
-            totalPupils = int.Parse(Console.ReadLine());
+        ClassRoom classRoom1 = new ClassRoom(pupil1, pupil2, pupil3, pupil4);
+        classRoom1.Study();
+        classRoom1.Read();
+        classRoom1.Write();
+        classRoom1.Relax();
 
-            if (totalPupils < 2 || totalPupils > 4)
-            {
-                Console.WriteLine("Not good. Try again");
-            }
-        }
+        Console.WriteLine("   ");
 
-        int excellentCount = 0;
-        int goodCount = 0;
-        int badCount = 0;
+        
 
-        for (int i = 0; i < totalPupils; i++)
-        {
-            Console.Write($"Enter type of pupil {i + 1} (1 for Excellent, 2 for Good, 3 for Bad): ");
-            int pupilType = int.Parse(Console.ReadLine());
+        Pupil pupil5 = new GoodPupil("Вася");
+        Pupil pupil6 = new BadPupil("Лёша");
 
-            switch (pupilType)
-            {
-                case 1:
-                    classRoom.AddPupil(new ExcelentPupil());
-                    excellentCount++;
-                    break;
-                case 2:
-                    classRoom.AddPupil(new GoodPupil());
-                    goodCount++;
-                    break;
-                case 3:
-                    classRoom.AddPupil(new BadPupil());
-                    badCount++;
-                    break;
-                default:
-                    Console.WriteLine("Nice try. Let's try again:");
-                    i--;
-                    break;
-            }
-        }
+        ClassRoom classRoom2 = new ClassRoom(pupil5, pupil6);
+        classRoom2.Study();
+        classRoom2.Read();
+        classRoom2.Write();
+        classRoom2.Relax();
 
-        Console.WriteLine($"Excellent Pupils: {excellentCount}");
-        Console.WriteLine($"Good Pupils: {goodCount}");
-        Console.WriteLine($"Bad Pupils: {badCount}");
-
-        classRoom.StartLesson();
-        classRoom.ReadingTime();
-        classRoom.WritingTime();
-        classRoom.RelaxTime();
+        
     }
 }
